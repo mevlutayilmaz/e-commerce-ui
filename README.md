@@ -1,6 +1,6 @@
 # ECommerceUI
 
-Bu proje, modern bir e-ticaret web sitesini React kullanarak hayata geçirir. Kullanıcı dostu bir arayüz sunarak, kullanıcıların ürünleri kolayca inceleyebilmesini, sepetlerine ekleyebilmesini ve sipariş verebilmesini sağlar. Proje, Tailwind CSS ile şık ve duyarlı bir tasarım sunar. Kimlik doğrulama ve yetkilendirme işlemleri için JWT (JSON Web Token) kullanılır ve arka uçta https://github.com/mevlutayilmaz/e-commerce-api ile entegre çalışır.
+Bu proje, modern bir e-ticaret web sitesini React kullanarak hayata geçirir. Kullanıcı dostu bir arayüz sunarak, kullanıcıların ürünleri kolayca inceleyebilmesini, sepetlerine ekleyebilmesini ve sipariş verebilmesini sağlar. Proje, Tailwind CSS ile şık ve duyarlı bir tasarım sunar. Kimlik doğrulama ve yetkilendirme işlemleri için JWT (JSON Web Token) kullanılır ve arka uçta [.NET E-Commerce API](https://github.com/mevlutayilmaz/e-commerce-api) ile entegre çalışır.
 
 ## Özellikler
 
