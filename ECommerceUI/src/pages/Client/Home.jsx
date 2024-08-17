@@ -7,8 +7,8 @@ import Pagination from '../../components/Pagination';
 
 const ITEMS_PER_PAGE = 20;
 const optionItems = [
-  { label: "Eskiden Yeniye", sortBy: "created date", isAscending: true },
   { label: "Yeniden Eskiye", sortBy: "created date", isAscending: false },
+  { label: "Eskiden Yeniye", sortBy: "created date", isAscending: true },
   { label: "Fiyata Göre Artan", sortBy: "price", isAscending: true },
   { label: "Fiyata Göre Azalan", sortBy: "price", isAscending: false },
 ];

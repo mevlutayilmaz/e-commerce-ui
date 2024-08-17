@@ -101,8 +101,6 @@ export const updateProduct = async (id, price) => {
   const token = await AuthService.getAccessToken();
   if(token) {
     try {
-      console.log(id, price);
-      
       const response = await axios.put(`${API_URL}/Products/UpdateProduct`,
         {id, price},
         {
