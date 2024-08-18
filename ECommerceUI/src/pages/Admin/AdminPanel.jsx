@@ -11,7 +11,7 @@ const AdminLayout = () => {
       <main className="flex-1">
         <div className="bg-white ">
           {location.pathname === '/admin' ? (
-            <div className="flex flex-col items-center justify-center h-full pt-10">
+            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-13rem)] pt-10">
               <h1 className="text-3xl font-bold text-gray-800 mb-4">Welcome to the Admin Panel!</h1>
               <p className="text-lg text-gray-600">Select a section from the sidebar to get started.</p>
               <svg className="w-24 h-24 text-blue-500 mt-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

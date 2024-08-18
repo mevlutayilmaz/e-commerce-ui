@@ -14,6 +14,8 @@ import AdminPanel from "./pages/Admin/AdminPanel";
 import AdminProducts from "./pages/Admin/AdminProducts";
 import AdminUsers from "./pages/Admin/AdminUsers";
 import AdminOrders from "./pages/Admin/AdminOrders";
+import ForgotPassword from "./pages/Client/ForgotPassword";
+import UpdatePassword from "./pages/Client/UpdatePassword";
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
             <Route path="/:categoryId" element={<Home />} />
             <Route path="/detail/:id" element={<ProductDetail />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/update-password/:userId/:resetToken" element={<UpdatePassword />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/search/:query" element={<Search />} />
 

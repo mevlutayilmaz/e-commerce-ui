@@ -30,14 +30,14 @@ export const NavItemsRight = () => {
     <div className="ml-auto flex gap-4 px-5">
       <a
         className="font-light text-white duration-100 hover:text-stone-300 hover:underline"
-        href="/Login"
+        href="/login"
       >
         Login
       </a>
       <span className="text-white">|</span>
       <a
         className="font-light text-white duration-100 hover:text-stone-300 hover:underline"
-        href="/Signup"
+        href="/signup"
       >
         Sign Up
       </a>

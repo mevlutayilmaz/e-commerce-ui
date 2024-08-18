@@ -50,11 +50,11 @@ const AdminOrders = () => {
       />
 
       {showOrderDetailsModal &&
-      <OrderDetailsModal
-        showModal={showOrderDetailsModal}
-        setShowModal={setShowOrderDetailsModal}
-        orderDetails={selectedOrderDetails}
-      />}
+        <OrderDetailsModal
+          showModal={showOrderDetailsModal}
+          setShowModal={setShowOrderDetailsModal}
+          orderDetails={selectedOrderDetails}
+        />}
     </div>
   );
 };

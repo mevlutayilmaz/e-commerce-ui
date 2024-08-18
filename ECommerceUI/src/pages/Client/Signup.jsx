@@ -16,7 +16,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-7rem)]">
+        <div className="flex items-center justify-center mt-4 min-h-[calc(100vh-13rem)]">
             <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
                     <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign up to platform</h5>
@@ -42,7 +42,7 @@ const Signup = () => {
                     </div>
                     <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create account</button>
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        Already create an account? <a href="Login" className="text-blue-700 hover:underline dark:text-blue-500">Login</a>
+                        Already create an account? <a href="/login" className="text-blue-700 hover:underline dark:text-blue-500">Login</a>
                     </div>
                 </form>
             </div> 
