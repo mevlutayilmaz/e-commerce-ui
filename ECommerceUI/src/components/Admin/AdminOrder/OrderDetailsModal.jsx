@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-const OrderDetailsModal = ({ showModal, setShowModal, orderDetails }) => {
+const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrder}) => {
   const handleClose = () => setShowModal(false);
 
   if (!showModal || !orderDetails) return null;
@@ -53,9 +53,6 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails }) => {
               ></path>
             </svg>
           </button>
-          <h2 className="font-bold text-2xl sm:text-3xl leading-8 text-black mb-6 text-center">
-            Order Details
-          </h2>
           <p className="font-normal text-base leading-6 text-gray-500 mb-8 text-center">
             {orderDetails.description}
           </p>
@@ -123,12 +120,33 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails }) => {
           {/* Order Total Section */}
           <div className="flex items-center justify-center sm:justify-end w-full my-4">
             <div className="w-full">
-              <div className="flex items-center justify-between py-4 border-y border-gray-100">
+              <div className="flex items-center justify-between py-4">
                 <p className="font-semibold text-lg leading-8 text-gray-900">Total</p>
                 <p className="font-bold text-lg text-indigo-600">{Intl.NumberFormat('tr-TR').format(total)} TL</p>
               </div>
             </div>
           </div>
+            {/* Complete Order Button - Conditional Rendering */}
+            {!orderDetails.completed && 
+              <div className="flex justify-center">
+                <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={() => {
+                  completeOrder(orderDetails.id)}}>
+                  Complete Order
+                </button>
+              </div>}
+
+              {orderDetails.completed && 
+                <div className="flex justify-center">
+                  <span className="text-green-500 font-bold flex items-center">
+                    <svg className="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Order Completed
+                  </span>
+                </div>}
+
+
         </div>
       </div>
     </div>

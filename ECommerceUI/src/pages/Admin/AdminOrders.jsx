@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getAllOrders, getOrderById } from "../../api/orders";
+import { getAllOrders, getOrderById, completeOrder } from "../../api/orders";
 import Loading from "../../components/Loading";
 import OrderDetailsModal from "../../components/Admin/AdminOrder/OrderDetailsModal";
 import OrderTable from "../../components/Admin/AdminOrder/OrderTable"
 import Pagination from "../../components/Admin/AdminPagination";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -14,6 +15,8 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(true);
   const [showOrderDetailsModal, setShowOrderDetailsModal] = useState(false);
   const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [completeToOrder, setCompleteToOrder] = useState(null)
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -29,11 +32,34 @@ const AdminOrders = () => {
   }, [currentPage]);
 
 
+  const handleOpenConfirmDialog = (orderId) => {
+    setCompleteToOrder(orderId);
+    setShowConfirmDialog(true);
+  };
+  const handleCloseConfirmDialog = () => {
+    setCompleteToOrder(null);
+    setShowConfirmDialog(false);
+  };
+
   const handleOpenOrderDetailsModal = async (orderId) => {
     const orderDetails = await getOrderById(orderId);
     setSelectedOrderDetails(orderDetails);
     setShowOrderDetailsModal(true);
   };
+
+  const handleCompleteOrder = async () => {
+    if(completeToOrder){
+      const data = await completeOrder(completeToOrder);
+      if(data)
+        setOrders((prevOrders) =>
+          prevOrders.map((order) =>
+            order.id === completeToOrder ? { ...order, completed: data } : order
+          )
+        );
+      handleCloseConfirmDialog();
+      setShowOrderDetailsModal(false);
+    }
+  }
 
   if (loading) return <Loading />;
 
@@ -54,6 +80,16 @@ const AdminOrders = () => {
           showModal={showOrderDetailsModal}
           setShowModal={setShowOrderDetailsModal}
           orderDetails={selectedOrderDetails}
+          completeOrder={handleOpenConfirmDialog}
+        />}
+
+      {showConfirmDialog && 
+        <ConfirmDialog
+          isOpen={showConfirmDialog}
+          onClose={handleCloseConfirmDialog}
+          onConfirm={handleCompleteOrder}
+          message="Are you sure you want to complete this order?"
+          title="Complete Order"
         />}
     </div>
   );

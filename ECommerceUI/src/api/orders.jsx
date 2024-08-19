@@ -72,3 +72,27 @@ export const getOrderById = async (id) => {
     }
   } else showInfoToast("(Unauthorization) Please log in!"); 
 }
+
+export const completeOrder = async (id) => {
+  const token = await AuthService.getAccessToken();
+  if(token){
+    try {
+      const response = await axios.get(`${API_URL}/Orders/complete-order/${id}`, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      )
+
+      if (response.status === 200) {
+        showSuccessToast("Sipariş başarılı bir şekilde tamamlandı. Bilgilendirme için email adresini kontrol et.")
+        return true
+      }
+      else showErrorToast("Failed to complete order. Please try again.");
+
+    } catch (error) {
+      showErrorToast("An error occurred. Please try again. (completeOrder)");
+    }
+  } else showInfoToast("(Unauthorization) Please log in!"); 
+}
