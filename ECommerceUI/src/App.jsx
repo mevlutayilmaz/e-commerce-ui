@@ -16,6 +16,8 @@ import AdminUsers from "./pages/Admin/AdminUsers";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import ForgotPassword from "./pages/Client/ForgotPassword";
 import UpdatePassword from "./pages/Client/UpdatePassword";
+import AdminAuthorizeMenu from "./pages/Admin/AdminAuthorizeMenu";
+import AdminRoles from "./pages/Admin/AdminRoles";
 
 const App = () => {
   return (
@@ -39,6 +41,8 @@ const App = () => {
               <Route path="products" element={<AdminProducts />} />
               <Route path="orders" element={<AdminOrders />} />
               <Route path="users" element={<AdminUsers />} />
+              <Route path="authorize-menu" element={<AdminAuthorizeMenu />} />
+              <Route path="roles" element={<AdminRoles />} />
             </Route>
           </Routes>
         </PageContainer>

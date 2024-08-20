@@ -24,7 +24,7 @@ export const getAllOrders = async (pageCount, itemCount) => {
       if (response.status === 200) return response.data;
       else showErrorToast("Failed to fetch products. Please try again.");
     } catch (error) {
-      showErrorToast("Failed to fetch orders. Please try again.");
+      showErrorToast("An error occurred. Please try again. (getAllOrders)");
     }
   } else showInfoToast("(Unauthorization) Please log in!");
 };

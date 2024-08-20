@@ -26,12 +26,12 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
       className={`fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full flex justify-center items-center bg-black/50 ${
         showModal ? 'flex' : 'hidden'
       }`}
-      onClick={handleClose} // Close modal on clicking outside
+      onClick={handleClose}
     >
       <div
         className="relative w-full max-w-3xl max-h-full overflow-y-auto"
         aria-hidden={!showModal}
-        onClick={(e) => e.stopPropagation()} // Prevent closing on clicking inside
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-8">
           <button
@@ -57,7 +57,6 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
             {orderDetails.description}
           </p>
 
-          {/* Order Summary Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-4 border-y border-gray-100 mb-4">
             <div>
                 <p className="text-sm text-gray-500 mb-1">Delivery Date</p>
@@ -76,7 +75,6 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
                 viewBox="0 0 46 32"
                 fill="none"
                 >
-                {/* ... SVG content ... */}
                 </svg>
             </div>
             <div>
@@ -87,15 +85,14 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
             </div>
           </div>
 
-          {/* Basket Items Section - Scrollable */}
-          <div className="max-h-80 overflow-y-auto" aria-hidden={!showModal}> {/* Added max height and overflow-y-auto */}
+          <div className="max-h-80 overflow-y-auto" aria-hidden={!showModal}>
             {orderDetails.basketItems.map((item, index) => (
               <div
                 key={index}
                 className="grid grid-cols-7 w-full py-1 border-b border-gray-200"
               >
                 <div className="col-span-7 min-[500px]:col-span-2 md:col-span-1">
-                  <img src={item.imageUrl} alt="basket item" className="w-full h-24 object-contain" /> {/* Added image styling */}
+                  <img src={item.imageUrl} alt="basket item" className="w-full h-24 object-contain" />
                 </div>
                 <div className="col-span-7 min-[500px]:col-span-5 md:col-span-6 min-[500px]:pl-5 max-sm:mt-3 flex flex-col justify-center">
                   <div className="flex flex-col min-[500px]:flex-row min-[500px]:items-center justify-between">
@@ -117,7 +114,6 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
             ))}
           </div>
 
-          {/* Order Total Section */}
           <div className="flex items-center justify-center sm:justify-end w-full my-4">
             <div className="w-full">
               <div className="flex items-center justify-between py-4">
@@ -126,7 +122,7 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
               </div>
             </div>
           </div>
-            {/* Complete Order Button - Conditional Rendering */}
+
             {!orderDetails.completed && 
               <div className="flex justify-center">
                 <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -145,8 +141,6 @@ const OrderDetailsModal = ({ showModal, setShowModal, orderDetails, completeOrde
                     Order Completed
                   </span>
                 </div>}
-
-
         </div>
       </div>
     </div>
