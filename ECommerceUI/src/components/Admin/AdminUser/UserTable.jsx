@@ -1,6 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
+import RoleSelectionModalToUser from "./RoleSelectionModalToUser";
+import { assignRoleToUser } from "../../../api/users";
 
 const UserTable = ({ users, onDelete }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null)
+
+  const openModal = (user) => {
+    setSelectedUser(user)
+    setIsModalOpen(true)
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null)
+      setIsModalOpen(false);
+  };
+
+  const handleSave = async (roles) => {
+    if(selectedUser){
+      await assignRoleToUser(selectedUser.id, roles)
+      closeModal();
+    }
+  };
+
   function getRandomColor() {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -17,7 +39,7 @@ const UserTable = ({ users, onDelete }) => {
           <tr className="bg-gray-100 text-left text-xs font-semibold uppercase tracking-widest text-gray-500">
             <th className="px-5 py-3">User</th>
             <th className="px-5 py-3">User Name</th>
-            <th className="px-5 py-3">User Role</th>
+            <th className="px-5 py-3">Two Factor Auth.</th> 
             <th className="px-5 py-3">Actions</th>
           </tr>
         </thead>
@@ -56,16 +78,25 @@ const UserTable = ({ users, onDelete }) => {
                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                   <p className="whitespace-no-wrap">{user.userName}</p>
                 </td>
-                <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                  <p className="whitespace-no-wrap">Administrator</p>
+                <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm text-center">
+                  {user.twoFactorEnabled ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                  )}
                 </td>
 
                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                   <button
                     type="button"
-                    className="w-fit inline-flex justify-center rounded-lg border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto"
+                    className="w-fit inline-flex justify-center rounded-lg border border-gray-200 bg-white px-2 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto"
+                    onClick={() => openModal(user)}
                   >
-                    Edit
+                    Add Role
                   </button>
                   <button
                     type="button"
@@ -80,6 +111,13 @@ const UserTable = ({ users, onDelete }) => {
           })}
         </tbody>
       </table>
+
+      {isModalOpen && <RoleSelectionModalToUser
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onSave={handleSave}
+          userId={selectedUser.id}
+            />}
     </div>
   );
 };

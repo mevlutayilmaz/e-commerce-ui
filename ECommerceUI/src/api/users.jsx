@@ -58,3 +58,46 @@ export const updatePassword = async (userId, resetToken, newPassword, passwordCo
   } catch (error) {
   }
 }
+
+export const assignRoleToUser = async (userId, roles) => {
+  const token = await AuthService.getAccessToken();
+  if(token){
+    try {
+      const response = await axios.post(`${API_URL}/Users/AssignRoleToUser`,
+         {userId, roles},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      );
+
+      if (response.status === 200) showSuccessToast("Rol atama işlemi başarılı.");
+      else showErrorToast("Rol atanırken bir hatayla karşılaşıldı");
+
+    } catch (error) {
+      showErrorToast("An error occurred. Please try again. (assignRoleToUser)");
+    }
+  } else showInfoToast("(Unauthorization) Please log in!");
+}
+
+export const getRolesToUser = async (userIdOrName) => {
+  const token = await AuthService.getAccessToken();
+  if(token){
+    try {
+      const response = await axios.get(`${API_URL}/Users/GetRolesToUser/${userIdOrName}`,
+       {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         }
+       }
+     );
+
+      if (response.status === 200) return response.data;
+      else showErrorToast("Failed to fetch roles to user. Please try again.");
+      
+    } catch (error) {
+      showErrorToast("An error occurred. Please try again. (getRolesToUser)");
+    }
+  } else showInfoToast("(Unauthorization) Please log in!");
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaProductHunt, FaBox, FaUsers, FaChevronRight } from 'react-icons/fa';
+import { FaProductHunt, FaBox, FaUsers, FaChevronRight , FaLink, FaUserShield} from 'react-icons/fa';
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,14 +35,14 @@ const AdminSidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/admin/authorize-menu" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaUsers className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Authorize Menu</span>
+              <Link to="/admin/endpoints" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <FaLink className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                <span className="ms-3">Endpoints</span>
               </Link>
             </li>
             <li>
               <Link to="/admin/roles" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaUsers className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                <FaUserShield className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="ms-3">Roles</span>
               </Link>
             </li>
