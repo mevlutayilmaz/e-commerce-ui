@@ -23,3 +23,7 @@ export const showErrorToast = (message, options = {}) => {
 export const showInfoToast = (message, options = {}) => {
   toast.info(message, { ...defaultToastOptions, ...options });
 };
+
+export const showWarningToast = (message, options = {}) => {
+  toast.warning(message, { ...defaultToastOptions, ...options });
+};

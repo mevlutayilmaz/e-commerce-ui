@@ -18,6 +18,8 @@ import ForgotPassword from "./pages/Client/ForgotPassword";
 import UpdatePassword from "./pages/Client/UpdatePassword";
 import AdminEndpoints from "./pages/Admin/AdminEndpoints";
 import AdminRoles from "./pages/Admin/AdminRoles";
+import NotFound from "./pages/NotFound";
+import AccessDenied from "./pages/AccessDenied";
 
 const App = () => {
   return (
@@ -43,7 +45,11 @@ const App = () => {
               <Route path="users" element={<AdminUsers />} />
               <Route path="endpoints" element={<AdminEndpoints />} />
               <Route path="roles" element={<AdminRoles />} />
+              <Route path="access-denied" element={<AccessDenied />} />
             </Route>
+
+            <Route path="*" element={<NotFound />} />
+
           </Routes>
         </PageContainer>
 

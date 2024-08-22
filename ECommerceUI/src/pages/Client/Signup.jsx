@@ -7,12 +7,8 @@ const Signup = () => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (data) => {
-      try {
         const response = await signup(data.nameSurname, data.username, data.email, data.password, data.password);
-        response.succeeded ? showSuccessToast('Signup successful.') : showErrorToast(`Signup failed: ${response.message}`)
-      } catch (error) {
-        showErrorToast('Signup failed!')
-      }
+        response.succeeded ? showSuccessToast('Kayıt başarılı.') : showErrorToast(`Kayıt başarısız: ${response.message}`)
     };
 
     return (

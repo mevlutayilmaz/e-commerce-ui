@@ -1,8 +1,6 @@
-import axios from 'axios';
-import AuthService from "../services/AuthService";
-import { showErrorToast, showSuccessToast, showInfoToast } from '../utils/toastUtils';
+import api from './apiClient';
 
-const API_URL = 'https://localhost:7041/api';
+const PRODUCTS_ENDPOINT = "/products"
 
 export const getAllProduct = async (pageCount, itemCount, categoryId, sortBy, isAscending) => {
   try {
@@ -13,20 +11,21 @@ export const getAllProduct = async (pageCount, itemCount, categoryId, sortBy, is
       ...(isAscending != null && {"isAscending": isAscending}),
       ...(categoryId && { "categoryId": categoryId })
     };
-    const response = await axios.get(`${API_URL}/Products/GetAllProduct`, {
-      params: params
-    });
 
-    if(response.status !== 200) showErrorToast("Failed to fetch products. Please try again.")
-    else return response.data;
+    const response = await api.get(`${PRODUCTS_ENDPOINT}/GetAllProduct`, { params })
+    return response.data;
   } catch (error) {
-    showErrorToast("Failed to fetch products. Please try again.")
+    console.error('API isteği başarısız:', error);
   }
 };
 
 export const getProductById = async (id) => {
-  const response = await axios.get(`${API_URL}/Products/GetProduct/${id}`);
-  return response.data;
+  try {
+    const response = await api.get(`${PRODUCTS_ENDPOINT}/GetProduct/${id}`)
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 };
 
 export const searchProduct = async (pageCount, itemCount, query) => {
@@ -36,19 +35,16 @@ export const searchProduct = async (pageCount, itemCount, query) => {
       "itemCount": itemCount,
       "query": query
     };
-    const response = await axios.get(`${API_URL}/Products/SearchProduct`, {
-      params: params
-    });
+
+    const response = await api.get(`${PRODUCTS_ENDPOINT}/SearchProduct`, { params })
     return response.data;
   } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
+    console.error('API isteği başarısız:', error);
   }
 };
 
 export const createProduct = async (name, brand, modelNo, price, categoryId, imageUrl) => {
-  const token = await AuthService.getAccessToken();
-  if(token){
+  try {
     const product = {
       name,
       brand,
@@ -57,63 +53,28 @@ export const createProduct = async (name, brand, modelNo, price, categoryId, ima
       categoryId,
       imageUrl
     }
-    
-    try {
-      const response = await axios.post(`${API_URL}/Products/CreateProduct`, 
-        { product },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
-      if (response.status === 200) showSuccessToast("The product was created successfully!");
-      else showErrorToast("Failed to create product. Please try again.");
-
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (createProduct)");
-    }
-  } else showInfoToast("(Unauthorization) Please log in!");
+    const response = await api.post(`${PRODUCTS_ENDPOINT}/CreateProduct`, { product }, { requiresAuth: true, successMessage: 'Ürün oluşturma işlemi başarılı!' })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }
 
 export const removeProduct = async (id) => {
-  const token = await AuthService.getAccessToken();
-  if(token) {
-    try {
-      const response = await axios.delete(`${API_URL}/Products/RemoveProduct/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.status === 200) showSuccessToast("The product was deleted successfully!");
-      else showErrorToast("Failed to delete product. Please try again.");
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (removeProduct)");
-    }
-  } else showInfoToast("(Unauthorization) Please log in!");
+  try {
+    const response = await api.delete(`${PRODUCTS_ENDPOINT}/RemoveProduct/${id}`, { requiresAuth: true, successMessage: 'Ürün silme işlemi başarılı!' })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }
 
 export const updateProduct = async (id, price) => {
-  const token = await AuthService.getAccessToken();
-  if(token) {
-    try {
-      const response = await axios.put(`${API_URL}/Products/UpdateProduct`,
-        {id, price},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.status === 200) showSuccessToast("The product was updated successfully!");
-      else showErrorToast("Failed to update product. Please try again.");
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (updateProduct)");
-    }
-  } else showInfoToast("(Unauthorization) Please log in!");
+  try {
+    const response = await api.put(`${PRODUCTS_ENDPOINT}/UpdateProduct`, { id, price }, { requiresAuth: true, successMessage: 'Ürün güncelleme işlemi başarılı!' })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }

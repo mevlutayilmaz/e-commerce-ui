@@ -34,14 +34,10 @@ const UpdatePassword = () => {
       return;
     }
 
-    try {
-      const response = await updatePassword(userId, resetToken, newPassword, passwordConfirm);
-      if (response.status === 200) {
-        showSuccessToast("Password updated successfully!");
-        navigate("/login");
-      }
-    } catch (error) {
-      showErrorToast("Failed to update password. Please try again.");
+    const response = await updatePassword(userId, resetToken, newPassword, passwordConfirm);
+    if (response.status === 200) {
+      showSuccessToast("Şifre değiştirme başarılı!");
+      navigate("/login");
     }
   };
 

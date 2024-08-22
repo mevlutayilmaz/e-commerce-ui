@@ -1,24 +1,30 @@
-import axios from "axios";
+import api from "./apiClient";
 
-const API_URL = "https://localhost:7041/api";
+const CATEGORIES_ENDPOINT = '/categories'
 
 export const getRootCategories = async () => {
   try {
-    const response = await axios.get(`${API_URL}/Categories/GetRootCategories`);
+    const response = await api.get(`${CATEGORIES_ENDPOINT}/GetRootCategories`)
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 };
 
 export const getSubCategories = async (id) => {
   try {
-    const response = await axios.get(`${API_URL}/Categories/GetSubCategories/${id}`);
+    const response = await api.get(`${CATEGORIES_ENDPOINT}/GetSubCategories/${id}`)
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 };
 
 export const getAllCategories = async () => {
   try {
-    const response = await axios.get(`${API_URL}/Categories/GetAllCategories`);
+    const response = await api.get(`${CATEGORIES_ENDPOINT}/GetAllCategories`)
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 };

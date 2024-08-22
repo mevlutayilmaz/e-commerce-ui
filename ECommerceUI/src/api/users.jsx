@@ -1,103 +1,57 @@
-import axios from 'axios';
-import AuthService from '../services/AuthService'
-import {showErrorToast, showInfoToast, showSuccessToast} from '../utils/toastUtils'
+import api from "./apiClient";
 
-const API_URL = 'https://localhost:7041/api';
+const USERS_ENDPOINT = '/users';
 
 export const signup = async (nameSurname, username, email, password, passwordConfirm) => {
-  const response = await axios.post(`${API_URL}/Users/CreateUser`, { nameSurname, username, email, password, passwordConfirm });
-  return response.data;
+  try {
+    const response = await api.post(`${USERS_ENDPOINT}/CreateUser`, { nameSurname, username, email, password, passwordConfirm })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 };
 
 export const getAllUsers = async(pageCount, itemCount) => {
-  const token = await AuthService.getAccessToken();
-  if(token){
-    try {
-      const response = await axios.get(`${API_URL}/Users?pageCount=${pageCount}&itemCount=${itemCount}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        }
-      );
-
-      if (response.status === 200) return response.data;
-      else showErrorToast("Failed to fetch users. Please try again.");
-      
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (getAllUsers)");
-    }
-  } else showInfoToast("(Unauthorization) Please log in!");
+  try {
+    const response = await api.get(USERS_ENDPOINT, { params: { pageCount, itemCount }, requiresAuth: true })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }
 
 export const removeUser = async (id) => {
-  const token = await AuthService.getAccessToken();
-  if(token){
-    try {
-      const response = await axios.delete(`${API_URL}/Users/${id}`, 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        }
-      );
-
-      if (response.status === 200) showSuccessToast("Silme işlemi başarılı.");
-      else showErrorToast("Failed to remove user. Please try again.");
-
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (removeUser)");
-    }
-  }else showInfoToast("(Unauthorization) Please log in!");
+  try {
+    const response = await api.delete(`${USERS_ENDPOINT}/${id}`, { requiresAuth: true, successMessage: 'Silme işlemi başarılı!' })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }
 
 export const updatePassword = async (userId, resetToken, newPassword, passwordConfirm) => {
   try {
-    const response = await axios.post(`${API_URL}/Users/update-password`, {userId, resetToken, newPassword, passwordConfirm})
-    return response
+    const response = await api.post(`${USERS_ENDPOINT}/update-password`, {userId, resetToken, newPassword, passwordConfirm})
+    return response;
   } catch (error) {
+    console.error('API isteği başarısız:', error);
   }
 }
 
 export const assignRoleToUser = async (userId, roles) => {
-  const token = await AuthService.getAccessToken();
-  if(token){
-    try {
-      const response = await axios.post(`${API_URL}/Users/AssignRoleToUser`,
-         {userId, roles},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        }
-      );
-
-      if (response.status === 200) showSuccessToast("Rol atama işlemi başarılı.");
-      else showErrorToast("Rol atanırken bir hatayla karşılaşıldı");
-
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (assignRoleToUser)");
-    }
-  } else showInfoToast("(Unauthorization) Please log in!");
+  try {
+    const response = await api.post(`${USERS_ENDPOINT}/AssignRoleToUser`, {userId, roles}, { requiresAuth: true, successMessage: 'Rol atama işlemi başarılı!' })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }
 
 export const getRolesToUser = async (userIdOrName) => {
-  const token = await AuthService.getAccessToken();
-  if(token){
-    try {
-      const response = await axios.get(`${API_URL}/Users/GetRolesToUser/${userIdOrName}`,
-       {
-         headers: {
-           Authorization: `Bearer ${token}`,
-         }
-       }
-     );
-
-      if (response.status === 200) return response.data;
-      else showErrorToast("Failed to fetch roles to user. Please try again.");
-      
-    } catch (error) {
-      showErrorToast("An error occurred. Please try again. (getRolesToUser)");
-    }
-  } else showInfoToast("(Unauthorization) Please log in!");
+  try {
+    const response = await api.get(`${USERS_ENDPOINT}/GetRolesToUser/${userIdOrName}`, { requiresAuth: true })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
 }
