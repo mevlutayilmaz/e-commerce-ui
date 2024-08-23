@@ -55,3 +55,12 @@ export const getRolesToUser = async (userIdOrName) => {
     console.error('API isteği başarısız:', error);
   }
 }
+
+export const getMenusOfUserRoles = async () => {
+  try {
+    const response = await api.get(`${USERS_ENDPOINT}/GetMenusOfUserRoles`, { requiresAuth: true })
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
+}

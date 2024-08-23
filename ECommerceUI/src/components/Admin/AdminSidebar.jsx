@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaProductHunt, FaBox, FaUsers, FaChevronRight , FaLink, FaUserShield} from 'react-icons/fa';
+import { FaProductHunt, FaBox, FaUsers, FaChevronRight , FaLink, FaUserShield, FaUserLock} from 'react-icons/fa';
 
-const AdminSidebar = () => {
+const AdminSidebar = ({menus}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -17,33 +17,48 @@ const AdminSidebar = () => {
         <div className="py-4">
           <ul className="space-y-2 font-medium">
             <li>
-              <Link to="/admin/products" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaProductHunt className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Products</span>
+              <Link to={menus.includes("Products") ? "/admin/products" : "#"} onClick={toggleSidebar} className={`flex items-center justify-between p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${!menus.includes("Products") && 'opacity-50 cursor-not-allowed'}`}>
+                <div className="flex items-center">
+                  <FaProductHunt className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <span className="ms-3">Products</span>
+                </div>
+                {!menus.includes("Products") && <FaUserLock className="text-red-500" title="Unauthorized Access" />}
               </Link>
             </li>
             <li>
-              <Link to="/admin/orders" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaBox className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Orders</span>
+              <Link to={menus.includes("Orders") ? "/admin/orders" : "#"} onClick={toggleSidebar} className={`flex items-center justify-between p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${!menus.includes("Orders") && 'opacity-50 cursor-not-allowed'}`}>
+                <div className="flex items-center">
+                  <FaBox className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <span className="ms-3">Orders</span>
+                </div>
+                {!menus.includes("Orders") && <FaUserLock className="text-red-500" title="Unauthorized Access" />}
               </Link>
             </li>
             <li>
-              <Link to="/admin/users" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaUsers className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Users</span>
+              <Link to={menus.includes("Users") ? "/admin/users" : "#"} onClick={toggleSidebar} className={`flex items-center justify-between p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${!menus.includes("Users") && 'opacity-50 cursor-not-allowed'}`}>
+                <div className="flex items-center">
+                  <FaUsers className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <span className="ms-3">Users</span>
+                </div>
+                {!menus.includes("Users") && <FaUserLock className="text-red-500" title="Unauthorized Access" />}
               </Link>
             </li>
             <li>
-              <Link to="/admin/endpoints" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaLink className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Endpoints</span>
+              <Link to={menus.includes("Application Services") ? "/admin/endpoints" : "#"} onClick={toggleSidebar} className={`flex items-center justify-between p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${!menus.includes("Application Services") && 'opacity-50 cursor-not-allowed'}`}>
+                <div className="flex items-center">
+                  <FaLink className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <span className="ms-3">Endpoints</span>
+                </div>
+                {!menus.includes("Application Services") && <FaUserLock className="text-red-500" title="Unauthorized Access" />}
               </Link>
             </li>
             <li>
-              <Link to="/admin/roles" onClick={toggleSidebar} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <FaUserShield className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Roles</span>
+              <Link to={menus.includes("Roles") ? "/admin/roles" : "#"} onClick={toggleSidebar} className={`flex items-center justify-between p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${!menus.includes("Roles") && 'opacity-50 cursor-not-allowed'}`}>
+                <div className="flex items-center">
+                  <FaUserShield className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <span className="ms-3">Roles</span>
+                </div>
+                {!menus.includes("Roles") && <FaUserLock className="text-red-500" title="Unauthorized Access" />}
               </Link>
             </li>
           </ul>

@@ -45,9 +45,9 @@ const App = () => {
               <Route path="users" element={<AdminUsers />} />
               <Route path="endpoints" element={<AdminEndpoints />} />
               <Route path="roles" element={<AdminRoles />} />
-              <Route path="access-denied" element={<AccessDenied />} />
             </Route>
 
+            <Route path="/access-denied" element={<AccessDenied />} />
             <Route path="*" element={<NotFound />} />
 
           </Routes>

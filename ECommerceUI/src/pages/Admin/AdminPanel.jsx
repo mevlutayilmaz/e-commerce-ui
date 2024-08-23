@@ -1,15 +1,33 @@
-import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../../components/Admin/AdminSidebar';
+import { getMenusOfUserRoles } from '../../api/users';
 
 const AdminLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    const fetchMenus = async () => {
+      const data = await getMenusOfUserRoles();
+      setMenus(data.menus);
+
+      if (data.menus.length === 0) {
+        navigate('/access-denied');
+      }
+    };
+
+    fetchMenus();
+  }, [navigate]);
+
+  if (menus.length === 0) return null;
 
   return (
     <div className="flex">
-      <AdminSidebar />
+      <AdminSidebar menus={menus}/>
       <main className="flex-1">
-        <div className="bg-white ">
+        <div className="bg-white">
           {location.pathname === '/admin' ? (
             <div className="flex flex-col items-center justify-center min-h-[calc(100vh-13rem)] pt-10">
               <h1 className="text-3xl font-bold text-gray-800 mb-4">Welcome to the Admin Panel!</h1>

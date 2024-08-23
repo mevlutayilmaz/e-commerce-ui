@@ -48,7 +48,9 @@ api.interceptors.response.use(
           break;
         case 401:
           showWarningToast('Yetkisiz erişim!');
-          // window.location.href = '/login';
+          if (window.location.pathname !== '/access-denied') {
+            window.location.replace('/access-denied');
+          }
           break;
         case 403:
           showWarningToast('Bu işlemi yapmaya yetkiniz yok.');

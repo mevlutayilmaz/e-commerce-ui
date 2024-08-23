@@ -13,7 +13,7 @@ export const getAllOrders = async (pageCount, itemCount) => {
 
 export const createOrder = async (description, address) => {
   try {
-    const response = await api.post(ORDERS_ENDPOINT, { description, address }, { requiresAuth: true })
+    const response = await api.post(ORDERS_ENDPOINT, { description, address }, { requiresAuth: true, successMessage: 'Siparişiniz oluşturuldu!' })
     return response.data;
   } catch (error) {
     console.error('API isteği başarısız:', error);
